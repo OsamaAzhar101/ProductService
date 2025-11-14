@@ -1,8 +1,9 @@
 package com.oasys.ProductService.controller;
 
-import com.oasys.ProductService.model.ProductRequest;
-import com.oasys.ProductService.model.ProductResponse;
+
 import com.oasys.ProductService.service.ProductService;
+import com.oasys.common_module.clients.external.model.ProductRequest;
+import com.oasys.common_module.clients.external.model.ProductResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

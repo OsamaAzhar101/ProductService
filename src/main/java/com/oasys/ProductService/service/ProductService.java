@@ -1,7 +1,7 @@
 package com.oasys.ProductService.service;
 
-import com.oasys.ProductService.model.ProductRequest;
-import com.oasys.ProductService.model.ProductResponse;
+import com.oasys.common_module.clients.external.model.ProductRequest;
+import com.oasys.common_module.clients.external.model.ProductResponse;
 
 public interface ProductService {
     long addProduct(ProductRequest productRequest);

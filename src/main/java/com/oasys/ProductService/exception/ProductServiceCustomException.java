@@ -1,3 +1,4 @@
+/*
 package com.oasys.ProductService.exception;
 
 import lombok.Data;
@@ -12,3 +13,4 @@ public class ProductServiceCustomException extends RuntimeException{
         this.errorCode = errorCode;
     }
 }
+*/

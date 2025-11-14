@@ -1,3 +1,4 @@
+/*
 package com.oasys.ProductService.exception;
 
 import com.oasys.ProductService.model.ErrorResponse;
@@ -18,3 +19,4 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
                     .build(), HttpStatus.NOT_FOUND);
     }
 }
+*/
