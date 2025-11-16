@@ -9,6 +9,7 @@ import com.oasys.common_module.exception.CustomException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.beans.BeanUtils.*;
 
@@ -40,13 +41,11 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponse getProductById(long productId) {
         log.info("Get the product for productId: {}", productId);
 
-        Product product
-                = productRepository.findById(productId)
-                .orElseThrow(
-                        () -> CustomException.builder()
-                                .errorMessage("Product with given id not found")
-                                .errorCode("PRODUCT_NOT_FOUND")
-                                .build());
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new CustomException(
+                        "Product with given id not found",
+                        "PRODUCT_NOT_FOUND",
+                        404));
 
         ProductResponse productResponse
                 = new ProductResponse();
@@ -58,27 +57,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void reduceQuantity(long productId, long quantity) {
-        log.info("Reduce Quantity {} for Id: {}", quantity, productId);
-
-        Product product
-                = productRepository.findById(productId)
-                .orElseThrow(
-                        () -> CustomException.builder()
-                                .errorMessage("Product with given id not found")
-                                .errorCode("PRODUCT_NOT_FOUND")
-                                .build());
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new CustomException("Product not found", "NOT_FOUND", 404));
 
         if (product.getQuantity() < quantity) {
-
-            throw CustomException.builder()
-                    .errorMessage("Product does not have sufficient Quantity")
-                    .errorCode("INSUFFICIENT_QUANTITY")
-                    .build();
-
+            // Replaced broken builder usage with direct CustomException
+            throw new CustomException("Product does not have sufficient Quantity", "INSUFFICIENT_QUANTITY", 409);
         }
 
         product.setQuantity(product.getQuantity() - quantity);
         productRepository.save(product);
-        log.info("Product Quantity updated Successfully");
     }
+
 }
